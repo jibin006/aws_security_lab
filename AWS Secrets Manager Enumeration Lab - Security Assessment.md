@@ -6,7 +6,7 @@ This lab focused on enumerating AWS Secrets Manager configurations and accessing
 ## Lab Environment
 - Region: us-east-1
 - Tools Used: AWS CLI, Base64 Decoder
-- Duration: 30 minutes
+
 
 ## Security Objectives
 - Understand Secrets Manager enumeration techniques

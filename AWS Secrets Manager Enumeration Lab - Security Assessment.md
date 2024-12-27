@@ -22,6 +22,8 @@ Started with IAM enumeration to understand available permissions:
 aws sts get-caller-identity
 aws iam list-user-policies --user-name sm-enumeration
 ```
+<img width="547" alt="image" src="https://github.com/user-attachments/assets/e9907738-a14e-40fa-acc8-023223d7eab7" />
+<img width="678" alt="image" src="https://github.com/user-attachments/assets/a5b1b35d-302b-4484-b039-7d40b48bbf15" />
 
 **Key Finding**: User had specific policy `AllowReadSecretsManager` with permissions to:
 - List secrets
@@ -46,6 +48,9 @@ Analyzed the policy document to understand the scope of access:
     ]
 }
 ```
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/307fef04-8b5b-42c5-8cde-3968a45659bf" />
+<img width="830" alt="image" src="https://github.com/user-attachments/assets/49317a7e-ee66-464a-90be-b5d1c0eebb64" />
+
 
 **Security Concern**: Resource pattern matching using wildcards could potentially grant access to unintended secrets.
 
@@ -56,6 +61,11 @@ aws secretsmanager list-secrets
 aws secretsmanager list-secret-version-ids --secret-id sm-enumerate-password
 aws secretsmanager get-resource-policy --secret-id sm-enumerate-password
 ```
+<img width="664" alt="image" src="https://github.com/user-attachments/assets/8c476d25-ee5c-4052-b23c-57696e66fad9" />
+<img width="649" alt="image" src="https://github.com/user-attachments/assets/5d135f87-2ca2-496b-a602-0f76743a7c08" />
+<img width="646" alt="image" src="https://github.com/user-attachments/assets/b02353b0-990f-4110-8452-278a1ea3dd8f" />
+<img width="626" alt="image" src="https://github.com/user-attachments/assets/7de7d1ff-3867-4c7c-8a76-4101feeac626" />
+<img width="635" alt="image" src="https://github.com/user-attachments/assets/533424d6-7f17-4a24-b5f5-3942063677b8" />
 
 **Critical Findings**:
 1. Two secrets identified:
@@ -65,11 +75,15 @@ aws secretsmanager get-resource-policy --secret-id sm-enumerate-password
 3. Both secrets using default encryption key
 
 ### 4. Secret Value Extraction
+
+We could use "describe-secret" but this command only retrieves the details of a secret, not the encrypted secret value. This can still give us valuable information, but we want the actual secret value.
 Successfully retrieved secret values:
 ```bash
 aws secretsmanager get-secret-value --secret-id sm-enumerate-password
 aws secretsmanager get-secret-value --secret-id sm-enumerate-api-key
 ```
+<img width="645" alt="image" src="https://github.com/user-attachments/assets/0fe98b48-851b-4cc2-84da-81fca55695e6" />
+<img width="637" alt="image" src="https://github.com/user-attachments/assets/6fff4054-b5de-4eb7-a740-ca0d6cf97b8a" />
 
 **Security Issue**: API key was base64 encoded but not encrypted, demonstrating inadequate protection.
 
@@ -158,10 +172,5 @@ aws secretsmanager get-secret-value
 3. Proper encryption practices beyond simple encoding are crucial
 4. Regular secret rotation and monitoring are essential
 
-## Next Steps
-- Implement automated secret rotation
-- Set up enhanced monitoring
-- Create secret access audit system
-- Implement proper encryption for all secrets
 
 This lab demonstrated the importance of proper secrets management and the potential risks of misconfiguration in AWS Secrets Manager.

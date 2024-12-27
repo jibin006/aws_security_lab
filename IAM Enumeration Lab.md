@@ -6,7 +6,6 @@ This lab focused on AWS Identity and Access Management (IAM) enumeration techniq
 ## Lab Environment
 - Region: us-east-1
 - Tools Used: AWS CLI
-- Duration: 30 minutes
 
 ## Security Objectives
 - Understand IAM enumeration techniques for security assessments

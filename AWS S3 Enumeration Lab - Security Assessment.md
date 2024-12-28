@@ -31,32 +31,39 @@ First, verify identity using:
 ```bash
 aws sts get-caller-identity
 ```
+<img width="465" alt="image" src="https://github.com/user-attachments/assets/62340403-c2e8-455b-a44e-ed8b193863f5" />
 
 List user policies:
 ```bash
 aws iam list-user-policies --user-name <username>
 ```
+<img width="623" alt="image" src="https://github.com/user-attachments/assets/90bff800-4573-414f-aa71-ced832ba187e" />
 
 Get specific policy details:
 ```bash
 aws iam get-user-policy --user-name <username> --policy-name <policy-name>
 ```
+<img width="907" alt="image" src="https://github.com/user-attachments/assets/c6d36e04-1d6a-4559-a8cd-d29561fcf2b9" />
+<img width="356" alt="image" src="https://github.com/user-attachments/assets/9e32c649-4882-4933-88d1-fbf351120665" />
 
 ### 3. S3 Enumeration
 List all buckets:
 ```bash
 aws s3api list-buckets
 ```
+<img width="438" alt="image" src="https://github.com/user-attachments/assets/e9b558c3-7fdc-4af7-b45a-4e1969fafb65" />
 
 List objects in a bucket:
 ```bash
 aws s3api list-objects-v2 --bucket <bucket-name>
 ```
+<img width="551" alt="image" src="https://github.com/user-attachments/assets/9e51f066-d728-443e-bbbb-0e9e8f78cae8" />
 
 Download objects:
 ```bash
 aws s3api get-object --bucket <bucket-name> --key <object-name> <local-path>
 ```
+<img width="583" alt="image" src="https://github.com/user-attachments/assets/ad320f15-85f5-43e7-a2db-4fe41a7c5caa" />
 
 ## Challenges Faced
 

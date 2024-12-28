@@ -86,8 +86,8 @@ Resource-based policies, in S3, can be set per-bucket. If we have access, we can
 
 - Learned to check bucket policies using `get-bucket-policy`
 - Documented the layered security approach AWS implements
-Resource-based policies act as a second layer of security. For services that support them, even if you have an IAM user or a role with access to that service or a specific resource, if there’s a resource policy blocking access, you will not have access!
-Keep that in mind as you go through security assessments in AWS if you ever get confused as to why you’re getting access denied even though it looks like you should have access.
+
+Resource-based policies act as a second layer of security. For services that support them, even if you have an IAM user or a role with access to that service or a specific resource, if there’s a resource policy blocking access, you will not have access! Keep that in mind as you go through security assessments in AWS if you ever get confused as to why you’re getting access denied even though it looks like you should have access.
 
 ### 3. S3 Resource ARN Formatting
 **Challenge:** Different S3 actions required different ARN formats (with or without `/*`).

@@ -80,8 +80,14 @@ aws s3api get-object --bucket <bucket-name> --key <object-name> <local-path>
 
 **Solution:**
 - Discovered the importance of understanding both identity-based and resource-based policies
+Resource-based policies, in S3, can be set per-bucket. If we have access, we can use the command get-bucket-policy to see it:
+<img width="904" alt="image" src="https://github.com/user-attachments/assets/944ab1e9-d8b0-4e16-9aeb-df8b2c0d33ce" />
+<img width="899" alt="image" src="https://github.com/user-attachments/assets/729220ec-749d-4735-9e2f-575d061439b5" />
+
 - Learned to check bucket policies using `get-bucket-policy`
 - Documented the layered security approach AWS implements
+Resource-based policies act as a second layer of security. For services that support them, even if you have an IAM user or a role with access to that service or a specific resource, if there’s a resource policy blocking access, you will not have access!
+Keep that in mind as you go through security assessments in AWS if you ever get confused as to why you’re getting access denied even though it looks like you should have access.
 
 ### 3. S3 Resource ARN Formatting
 **Challenge:** Different S3 actions required different ARN formats (with or without `/*`).
@@ -108,10 +114,6 @@ aws s3api get-object --bucket <bucket-name> --key <object-name> <local-path>
    - Use `--profile` to avoid credential confusion
    - Document ARN formats for different resource types
 
-## Future Improvements
-1. Create scripts to automate the enumeration process
-2. Develop a more comprehensive permission checking mechanism
-3. Build templates for common S3 enumeration scenarios
 
 ## Security Considerations
 - Always ensure proper access controls are in place

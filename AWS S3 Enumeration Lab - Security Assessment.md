@@ -1,122 +1,117 @@
-# AWS S3 Enumeration Lab - Security Assessment
+# AWS S3 Enumeration Lab
 
 ## Overview
-This lab focuses on understanding Amazon S3 enumeration techniques from a security perspective, including identifying potential misconfigurations and implementing proper access controls. The lab demonstrates how to safely use AWS CLI to enumerate S3 buckets and objects while understanding the security implications of different access policies.
+This lab focuses on learning Amazon S3 enumeration techniques using AWS CLI, understanding the intricacies of S3 permissions, and exploring the interaction between identity-based and resource-based policies.
+
+## Prerequisites
+- AWS CLI installed and configured
+- Basic understanding of AWS services
+- An AWS account with appropriate access keys
 
 ## Lab Objectives
-- Perform S3 bucket and object enumeration using AWS CLI
-- Understand identity-based vs resource-based policies in S3
-- Identify potential security misconfigurations
-- Practice secure handling of AWS credentials
+- Learn S3 enumeration using AWS CLI
+- Understand S3-specific CLI commands and their quirks
+- Explore IAM permissions and their impact on S3 access
+- Investigate resource-based policies in S3
 
-## Security Challenge Scenarios
+## Detailed Steps
 
-### Challenge 1: Initial Access Configuration
-**Challenge:** Securely configuring AWS credentials for enumeration while following the principle of least privilege.
-**Solution:** 
-- Used AWS CLI's profile feature to isolate lab credentials
-- Configured specific region (us-east-1) to prevent unintended cross-region access
+### 1. Initial Setup
 ```bash
-aws configure --profile s3-enum-lab
-AWS Access Key ID [None]: [REDACTED]
-AWS Secret Access Key [None]: [REDACTED]
-Default region name [None]: us-east-1
+aws configure [--profile <NAME>]
+# Input the following:
+AWS Access Key ID: AKIAT6...
+AWS Secret Access Key: sa3CB4...
+Default region name: us-east-1
+Default output format: [Enter for None or type json]
 ```
 
-### Challenge 2: Permission Analysis
-**Challenge:** Understanding the complex interplay between IAM permissions and bucket policies.
-**Solution:** Implemented systematic enumeration approach:
-1. Identified current IAM context:
+### 2. IAM Enumeration
+First, verify identity using:
 ```bash
 aws sts get-caller-identity
 ```
-2. Analyzed user policies:
+
+List user policies:
 ```bash
-aws iam list-user-policies --user-name [USERNAME]
-aws iam get-user-policy --user-name [USERNAME] --policy-name [POLICY_NAME]
+aws iam list-user-policies --user-name <username>
 ```
 
-### Challenge 3: Access Control Complexity
-**Challenge:** Encountered scenario where IAM permissions suggested access but resource policies prevented it.
-**Solution:** 
-- Discovered dual-layer access control mechanism
-- Documented the importance of checking both:
-  - Identity-based policies (IAM)
-  - Resource-based policies (Bucket Policies)
+Get specific policy details:
+```bash
+aws iam get-user-policy --user-name <username> --policy-name <policy-name>
+```
 
-## Technical Implementation
-
-### S3 Enumeration Commands
-Key commands used during the assessment:
-
-1. List all buckets:
+### 3. S3 Enumeration
+List all buckets:
 ```bash
 aws s3api list-buckets
 ```
 
-2. List objects in specific bucket:
+List objects in a bucket:
 ```bash
-aws s3api list-objects-v2 --bucket [BUCKET_NAME]
+aws s3api list-objects-v2 --bucket <bucket-name>
 ```
 
-3. Retrieve bucket policies:
+Download objects:
 ```bash
-aws s3api get-bucket-policy --bucket [BUCKET_NAME]
+aws s3api get-object --bucket <bucket-name> --key <object-name> <local-path>
 ```
 
-## Security Best Practices Identified
+## Challenges Faced
 
-1. **Access Control Layering**
-   - Implement both IAM policies and bucket policies
-   - Use explicit deny statements in bucket policies for stronger security
-   - Follow principle of least privilege when granting permissions
+### 1. S3 CLI Command Structure
+**Challenge:** The AWS S3 CLI has multiple command sets (s3, s3api, s3control, s3outposts) which can be confusing for beginners.
 
-2. **Resource Policy Implementation**
-   - Use resource-based policies as an additional security layer
-   - Implement conditions in bucket policies to restrict access based on:
-     - Principal ARN
-     - Source IP
-     - VPC endpoints
+**Solution:** 
+- Focused on using `s3api` commands as they provide more detailed control and output
+- Created a command reference sheet for commonly used operations
+- Documented the differences between command sets for future reference
 
-3. **Enumeration Security**
-   - Use separate AWS profiles for different security contexts
-   - Regularly rotate access keys
-   - Monitor and log S3 enumeration activities
+### 2. Permission Complexities
+**Challenge:** Despite having appropriate IAM permissions, access to certain buckets was denied.
 
-4. **Common Misconfigurations to Check**
-   - Public bucket access settings
-   - Overly permissive bucket policies
-   - Lack of encryption
-   - Missing access logging
+**Solution:**
+- Discovered the importance of understanding both identity-based and resource-based policies
+- Learned to check bucket policies using `get-bucket-policy`
+- Documented the layered security approach AWS implements
 
-## Lab Findings
+### 3. S3 Resource ARN Formatting
+**Challenge:** Different S3 actions required different ARN formats (with or without `/*`).
 
-1. **Access Pattern Analysis**
-   - Successfully identified two S3 buckets
-   - Discovered different access levels between buckets
-   - Demonstrated impact of layered security controls
+**Solution:**
+- Created a reference guide for ARN formats:
+  - Bucket-level actions: `arn:aws:s3:::bucket-name`
+  - Object-level actions: `arn:aws:s3:::bucket-name/*`
 
-2. **Security Implications**
-   - Confirmed effective resource-based policy blocks
-   - Validated principle of defense in depth
-   - Identified potential enumeration vectors
+## Key Learnings
 
-## Tools Used
-- AWS CLI
-- AWS IAM
-- AWS S3 API
+1. **S3 CLI Peculiarities**
+   - Different command sets serve different purposes
+   - `list-objects-v2` is preferred over `list-objects`
+   - Command structure varies between high-level and API-level operations
 
-## Lessons Learned
-1. Always verify both identity and resource-based permissions
-2. Use `list-objects-v2` instead of deprecated `list-objects`
-3. Implement proper error handling for access denied scenarios
-4. Regular security assessments should include both IAM and resource policy reviews
+2. **AWS Security Layers**
+   - Identity-based policies (IAM) are not sufficient alone
+   - Resource-based policies can override IAM permissions
+   - Always check both policy types when troubleshooting access issues
 
-## Future Enhancements
-1. Implement automated S3 security scanning
-2. Develop custom scripts for comprehensive bucket policy analysis
-3. Create monitoring system for unauthorized enumeration attempts
+3. **Best Practices**
+   - Always verify identity before starting enumeration
+   - Use `--profile` to avoid credential confusion
+   - Document ARN formats for different resource types
 
-## References
-- [AWS S3 Security Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)
-- [S3 Bucket Policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html)
+## Future Improvements
+1. Create scripts to automate the enumeration process
+2. Develop a more comprehensive permission checking mechanism
+3. Build templates for common S3 enumeration scenarios
+
+## Security Considerations
+- Always ensure proper access controls are in place
+- Regularly review and audit bucket policies
+- Follow the principle of least privilege when setting up permissions
+
+## Resources
+- [AWS S3 Documentation](https://docs.aws.amazon.com/s3/index.html)
+- [AWS CLI Command Reference](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/index.html)
+- [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)

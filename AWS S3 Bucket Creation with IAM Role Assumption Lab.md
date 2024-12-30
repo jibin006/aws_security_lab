@@ -32,7 +32,6 @@ Default output format: [Enter for None]
 ```bash
 # Verify current identity
 aws sts get-caller-identity --profile s3
-<img width="398" alt="image" src="https://github.com/user-attachments/assets/81069a10-b9a2-4033-b496-ac6cf5473df7" />
 
 # List and find assumable role
 aws iam list-roles --query "Roles[?RoleName=='AssumableS3Role']" --profile s3
@@ -40,6 +39,9 @@ aws iam list-roles --query "Roles[?RoleName=='AssumableS3Role']" --profile s3
 # Assume the role
 aws sts assume-role --role-arn arn:aws:iam::[Account-ID]:role/AssumableS3Role --role-session-name S3Role --profile s3
 ```
+<img width="398" alt="image" src="https://github.com/user-attachments/assets/01760760-f10b-4893-a8e4-a7c98cd2d240" />
+<img width="595" alt="image" src="https://github.com/user-attachments/assets/e7874aa6-bfd1-4be7-a767-b6794889f5f2" />
+<img width="904" alt="image" src="https://github.com/user-attachments/assets/3645df09-8614-4ccf-8bf4-1595fac6f9a2" />
 
 ### 3. Configure Temporary Credentials
 ```bash
@@ -49,6 +51,7 @@ aws configure --profile s3role
 # Set the session token
 aws configure set aws_session_token "[Session-Token]" --profile s3role
 ```
+<img width="901" alt="image" src="https://github.com/user-attachments/assets/1071458f-6a7d-4562-af0c-29500c91af1a" />
 
 ### 4. S3 Operations with Assumed Role
 ```bash
@@ -61,8 +64,14 @@ aws s3api create-bucket --bucket our-new-bucket-cybr --profile s3role
 # Upload file
 aws s3 cp example.txt s3://our-new-bucket-cybr --profile s3role
 ```
+<img width="308" alt="image" src="https://github.com/user-attachments/assets/d945f64a-d982-4620-a40d-f720925f0fd4" />
+<img width="544" alt="image" src="https://github.com/user-attachments/assets/1b2c85e7-bf36-42de-99e2-23984e3fdff4" />
+<img width="472" alt="image" src="https://github.com/user-attachments/assets/f5a67add-20fd-4d48-b09a-f8d9ee90fb74" />
+Tip: You can view/output a text file in your terminal by using - instead of <path-to-download-file> without downloading the file locally:
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/0a9ee15b-3369-4aec-95aa-9cb9a74ba486" />
 
 ### 5. (Optional) AWS Console Access
+We can also access the AWS Console with the temporary credentials by either creating our own script, or using a pre-made and open source tool like awsume.
 ```bash
 # Install awsume
 pip install awsume
@@ -73,7 +82,10 @@ pip3 install awsume-console-plugin
 
 # Generate console access URL
 awsume s3role -cl
+
 ```
+<img width="598" alt="image" src="https://github.com/user-attachments/assets/22f0e38b-7617-418f-82a4-45fab28b6f30" />
+It will return a very long URL that you can use to log into the AWS console with the role’s credentials and permissions!
 
 ## Challenges Faced
 

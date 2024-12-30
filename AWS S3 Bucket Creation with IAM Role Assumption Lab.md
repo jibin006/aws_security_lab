@@ -26,11 +26,13 @@ AWS Secret Access Key: [Your-Secret-Key]
 Default region name: us-east-1
 Default output format: [Enter for None]
 ```
+<img width="568" alt="image" src="https://github.com/user-attachments/assets/030cef5c-6664-4868-9ae6-b2102577d212" />
 
 ### 2. Role Assumption Process
 ```bash
 # Verify current identity
 aws sts get-caller-identity --profile s3
+<img width="398" alt="image" src="https://github.com/user-attachments/assets/81069a10-b9a2-4033-b496-ac6cf5473df7" />
 
 # List and find assumable role
 aws iam list-roles --query "Roles[?RoleName=='AssumableS3Role']" --profile s3

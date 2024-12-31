@@ -29,6 +29,7 @@ Create a new KMS key for S3 encryption:
 ```bash
 aws kms create-key --description "KMS key for S3 SSE-KMS" --profile s3
 ```
+<img width="553" alt="image" src="https://github.com/user-attachments/assets/11c608f5-082b-4bbf-930a-cb549e7f51a7" />
 
 Create an alias for easier key management:
 
@@ -40,8 +41,11 @@ aws kms create-alias \
 ```
 
 Note: Replace `[YOUR_KEY_ID]` with the KeyId from the create-key response.
+<img width="770" alt="image" src="https://github.com/user-attachments/assets/ccb14ae5-facb-4142-b9fd-ff794b46070f" />
 
 ### 3. Configure S3 Bucket Encryption
+
+<img width="310" alt="image" src="https://github.com/user-attachments/assets/198a3fd0-6b08-433a-8461-7264006ca1d1" />
 
 First, check current encryption settings:
 
@@ -50,8 +54,11 @@ aws s3api get-bucket-encryption \
     --bucket [YOUR_BUCKET_NAME] \
     --profile s3
 ```
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/61eabb8d-c434-4721-9f2f-f9d78f37f96d" />
 
 Create a configuration file (`config.json`) for SSE-KMS:
+
+Use vim config.json
 
 ```json
 {
@@ -66,6 +73,7 @@ Create a configuration file (`config.json`) for SSE-KMS:
   ]
 }
 ```
+<img width="722" alt="image" src="https://github.com/user-attachments/assets/0716c699-582e-4870-84e9-37ac1ebca7b5" />
 
 Apply the encryption configuration:
 
@@ -75,6 +83,10 @@ aws s3api put-bucket-encryption \
     --server-side-encryption-configuration file://config.json \
     --profile s3
 ```
+aws s3api put-bucket-encryption --bucket cybrlab-sample-bucket-272281913033 --server-side-encryption-configuration file://config.json --profile S3
+
+<img width="647" alt="image" src="https://github.com/user-attachments/assets/0f184845-c9fd-497e-914b-311e31669351" />
+
 
 ### 4. Upload and Verify Encrypted Objects
 
@@ -83,6 +95,7 @@ Upload an object with SSE-KMS:
 ```bash
 aws s3 cp [LOCAL_FILE] s3://[YOUR_BUCKET_NAME] --profile s3
 ```
+<img width="575" alt="image" src="https://github.com/user-attachments/assets/9cbcd0e2-d1da-43e9-b9af-c38368068a31" />
 
 For explicit key specification:
 
@@ -102,6 +115,7 @@ aws s3api get-object \
     [OUTPUT_FILE] \
     --profile s3
 ```
+<img width="650" alt="image" src="https://github.com/user-attachments/assets/e6442867-3506-4fe6-ae04-a8c2961ed5e3" />
 
 ## Key Features Implemented
 

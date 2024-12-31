@@ -7,3 +7,4 @@ Includes the labs I completed during my learning process.
 5. Encrypting S3 Data with SSE-KMS - CLI
 6. S3 Versioning - AWS CLI
 7. S3 Presigned URLs
+8. Launching an EC2 instance

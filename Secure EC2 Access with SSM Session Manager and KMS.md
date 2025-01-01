@@ -6,14 +6,29 @@ I implemented a secure way to access EC2 instances using AWS Systems Manager (SS
 ## Implementation Steps
 
 ### 1. Initial Setup
-- Configured AWS Systems Manager in the US-East-1 region
+- Configured AWS Systems Manager in the US-East-1 region ( navigate to AWS Systems Manager > Node Management > Fleet Manager)
+  <img width="659" alt="image" src="https://github.com/user-attachments/assets/8b8f02d7-55ec-4c19-99ce-229280ee8ce8" />
+
 - Enabled Default Host Management Configuration (DHMC)
+
+  <img width="656" alt="image" src="https://github.com/user-attachments/assets/5edd67d3-b2f4-449c-8098-8871f2df327c" />
+
 - Set up required IAM roles for SSM service
+AWSSystemsManagerDefaultEC2InstanceManagementRole
 
 ### 2. Session Manager Configuration
 - Implemented Session Manager for secure instance access
-- Configured session preferences for enhanced security
+<img width="648" alt="image" src="https://github.com/user-attachments/assets/1dd21a99-99e2-4d6f-bfd9-84924a18f723" />
+<img width="652" alt="image" src="https://github.com/user-attachments/assets/6fa2b435-3074-4b9b-af0d-01eb4d05cf03" />
+
+- Configured session preferences for enhanced security.Session Preferences allow you to configure session settings like enabling encrypted sessions, logging commands, setting timeouts, and more.
+
+  <img width="650" alt="image" src="https://github.com/user-attachments/assets/9d7e1629-80e4-4f52-8137-fe0aa8b10064" />
+
 - Enabled KMS encryption for session data
+
+<img width="535" alt="image" src="https://github.com/user-attachments/assets/89721772-4e96-436a-8da3-960e3af77fbf" />
+<img width="942" alt="image" src="https://github.com/user-attachments/assets/dadf2b37-9d7e-4675-bdf7-adbc54b5641f" />
 
 ## Challenges Faced & Solutions
 
@@ -23,6 +38,10 @@ I implemented a secure way to access EC2 instances using AWS Systems Manager (SS
 **Solution:** 
 - Created a systematic checklist to verify all prerequisites while waiting
 - Used this time to study and understand SSM architecture
+
+<img width="652" alt="image" src="https://github.com/user-attachments/assets/1c923a65-d218-452c-9f50-80ac14a40ae1" />
+<img width="666" alt="image" src="https://github.com/user-attachments/assets/2d7db8c9-16e1-4125-a522-67640855031a" />
+
 - Learned patience is key when working with AWS services that have built-in delays
 
 ### Challenge 2: KMS Key Selection

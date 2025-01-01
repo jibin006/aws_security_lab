@@ -10,36 +10,53 @@ I needed to encrypt an already running production EC2 instance's EBS volume with
 
 ### 1. Initial Assessment
 First, I had to find all unencrypted volumes:
+<img width="603" alt="image" src="https://github.com/user-attachments/assets/f27712a5-ade7-44f5-8f3a-d520564dece1" />
+
 - Used EC2 console to check the "Encryption" column
+<img width="616" alt="image" src="https://github.com/user-attachments/assets/243f9493-1475-4106-89dd-9b1c7da5bebb" />
+
 - Found volumes marked as "Not encrypted"
 - Documented the volume IDs and their attached instances
 
 ### 2. Volume Backup Strategy
 Created backups before making any changes:
 - Took snapshots of unencrypted volumes
+  <img width="581" alt="image" src="https://github.com/user-attachments/assets/b00b991e-2650-4708-815a-2684447af6e7" />
 - Named them clearly for easy tracking
 - Waited for snapshots to complete (took about 2-3 minutes)
 
 ### 3. Encryption Process
 Here's where it got interesting! I had to:
 1. Create an encrypted copy of the snapshot
+   <img width="545" alt="image" src="https://github.com/user-attachments/assets/d017db39-a074-4e75-9c64-8ef8db114bff" />
+
    - Used AWS-managed key (aws/ebs) for encryption
    - Kept the same region for simplicity
    - Waited for copy completion (about 2-5 minutes)
 
-2. Create new encrypted volume:
+3. Create new encrypted volume:
    - Used the encrypted snapshot
    - Matched the original volume's size (8GB)
    - Selected same availability zone as original
    - Made sure encryption was enabled
+     <img width="527" alt="image" src="https://github.com/user-attachments/assets/40075d63-b60b-4eba-9022-448df618dcb1" />
+
 
 ### 4. The Tricky Part: Volume Swap
 This was the most challenging part. I had to:
 1. Stop the EC2 instance
 2. Note the device name (/dev/xvda)
 3. Detach the old unencrypted volume
-4. Attach new encrypted volume
-5. Start the instance again
+<img width="540" alt="image" src="https://github.com/user-attachments/assets/f81c155f-8cb3-4bfc-8529-a8f650746d46" />
+<img width="552" alt="image" src="https://github.com/user-attachments/assets/0ac02b74-6f8f-4f77-8d17-02f08ca314dd" />
+
+5. Attach new encrypted volume
+   <img width="506" alt="image" src="https://github.com/user-attachments/assets/6c0303b6-ecd3-4ca3-82fa-c4428d1e5cd3" />
+   <img width="406" alt="image" src="https://github.com/user-attachments/assets/e066fff1-2c3a-4ff7-a94c-a4c579fdb945" />
+   <img width="525" alt="image" src="https://github.com/user-attachments/assets/578f03f2-6d52-42f7-88c1-f305e64de7e9" />
+
+7. Start the instance again
+    Instance State > Start Instance
 
 ## Problems I Faced & Solutions
 
@@ -61,6 +78,8 @@ This was the most challenging part. I had to:
 **Challenge:** Needed to verify all data was intact
 **Solution:**
 - Used `df -h` and `lsblk` commands to verify volume attachment
+  <img width="533" alt="image" src="https://github.com/user-attachments/assets/33090c3e-2390-450a-a5e9-7993c78cdbad" />
+
 - Checked file systems and mount points
 - Documented everything for future reference
 

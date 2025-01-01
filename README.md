@@ -9,6 +9,8 @@ Includes the labs I completed during my learning process.
 7. S3 Presigned URLs
 8. Launching an EC2 instance
 9. Secure EC2 Access with SSM Session Manager and KMS
+10. Encrypt Existing Unencrypted EBS Volumes and Snapshots
+
 
 I'll summarize the key takeaways from each lab, focusing on important points to remember:
 

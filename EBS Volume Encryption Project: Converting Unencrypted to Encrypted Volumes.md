@@ -47,10 +47,13 @@ This was the most challenging part. I had to:
 1. Stop the EC2 instance
 2. Note the device name (/dev/xvda)
 3. Detach the old unencrypted volume
+
 <img width="540" alt="image" src="https://github.com/user-attachments/assets/f81c155f-8cb3-4bfc-8529-a8f650746d46" />
+
 <img width="552" alt="image" src="https://github.com/user-attachments/assets/0ac02b74-6f8f-4f77-8d17-02f08ca314dd" />
 
 5. Attach new encrypted volume
+
    <img width="506" alt="image" src="https://github.com/user-attachments/assets/6c0303b6-ecd3-4ca3-82fa-c4428d1e5cd3" />
    <img width="406" alt="image" src="https://github.com/user-attachments/assets/e066fff1-2c3a-4ff7-a94c-a4c579fdb945" />
    <img width="525" alt="image" src="https://github.com/user-attachments/assets/578f03f2-6d52-42f7-88c1-f305e64de7e9" />

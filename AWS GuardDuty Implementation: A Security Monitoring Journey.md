@@ -3,6 +3,9 @@
 ## Project Overview
 I implemented and explored AWS GuardDuty to enhance our cloud security monitoring capabilities. This project helped me understand how to detect and respond to security threats in AWS environments.
 
+<img width="946" alt="image" src="https://github.com/user-attachments/assets/fde0c423-f7c9-4e14-a490-ec6456e0bbd6" />
+
+
 ## Getting Started
 
 ### Initial Setup Challenges

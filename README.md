@@ -13,6 +13,7 @@ Includes the labs I completed during my learning process.
 11. AWS GuardDuty Implementation: A Security Monitoring Journey
 12. Implementing AWS Inspector: My Journey with AWS Security Scanning
 13. Remediate Open SSH Security Groups with AWS Config
+14. Finding S3 Security Misconfigurations Using Prowler
 
 
 I'll summarize the key takeaways from each lab, focusing on important points to remember:

@@ -22,13 +22,13 @@ I verified the installation by listing available S3 checks:
 ```bash
 prowler aws --list-checks -s s3
 ```
+<img width="623" alt="image" src="https://github.com/user-attachments/assets/a0686b82-e1d4-4466-8b44-888a07d08a22" />
 
 ### 4. Identifying the Target Bucket
 Listed the S3 buckets in the environment:
 ```bash
 aws s3 ls --profile prowler
 ```
-Found bucket: `cybr-lab-s3-prowler-272281913033`
 
 ## Security Assessment Execution
 
@@ -36,8 +36,16 @@ Ran the security assessment with:
 ```bash
 prowler aws -s s3 --profile prowler
 ```
+The -s flag stands for service, so you could also type --services. Here, we’re only running checks for the S3 service, but Prowler supports many more services.
+
+## Result:
+
+<img width="412" alt="image" src="https://github.com/user-attachments/assets/82b6cb86-6db9-44ba-847a-d03af60145fc" />
 
 ## Detailed Findings Analysis
+
+<img width="412" alt="image" src="https://github.com/user-attachments/assets/42a7a11b-34c6-4b06-9620-737897b2d5ca" />
+
 
 ### Finding 1: Missing Account Level Public Access Block
 - **Severity**: High
@@ -77,6 +85,9 @@ prowler aws -s s3 --profile prowler
 ```bash
 prowler dashboard
 ```
+<img width="383" alt="image" src="https://github.com/user-attachments/assets/78e94135-59a4-4cb7-88fe-aab6ca80b9a4" />
+<img width="377" alt="image" src="https://github.com/user-attachments/assets/63abf0ee-51a4-42c9-bde8-ebf354bce3a5" />
+
 - Accessed via local browser at http://127.0.0.1:11666/
 - Provided visual representation of findings
 - Showed pass/fail status and severity distribution

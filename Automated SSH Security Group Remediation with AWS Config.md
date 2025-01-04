@@ -39,6 +39,8 @@ Config rule initially showed compliant even with the bad security group.
 - Used the "Re-evaluate" button
 - Learned about AWS Config's evaluation timing
 
+<img width="656" alt="image" src="https://github.com/user-attachments/assets/b952779f-60f9-4da0-8d02-6fce2b2ba689" />
+
 ### 3. Setting Up Automated Fixes
 
 **What I Did:**

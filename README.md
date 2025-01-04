@@ -12,6 +12,7 @@ Includes the labs I completed during my learning process.
 10. Encrypt Existing Unencrypted EBS Volumes and Snapshots
 11. AWS GuardDuty Implementation: A Security Monitoring Journey
 12. Implementing AWS Inspector: My Journey with AWS Security Scanning
+13. Remediate Open SSH Security Groups with AWS Config
 
 
 I'll summarize the key takeaways from each lab, focusing on important points to remember:

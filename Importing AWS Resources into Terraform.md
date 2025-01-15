@@ -98,6 +98,14 @@ When managing infrastructure with Terraform, you might encounter existing AWS re
    }
    ```
 
+   Add tags if required as per the state.
+   
+   tags = {
+              "Description": "Bucket used to practice importing resources into Terraform.",
+              "cybr-lab": "auto-deployed"
+
+   }  
+
 5. Verify synchronization:
    ```bash
    terraform plan

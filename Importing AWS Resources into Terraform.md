@@ -147,6 +147,11 @@ When managing infrastructure with Terraform, you might encounter existing AWS re
 - Always review generated configuration before applying changes.
 - Use the `terraform state` commands to inspect imported resources.
 
+# create main,provider,variable
+# command to import 
+# terraform import aws_s3_bucket.bucket cybrlab-import-bucket-014498641717
+# try terraform plan and confirm no changes
+
 ---
 
 ## Conclusion
